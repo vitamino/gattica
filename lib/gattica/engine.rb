@@ -48,21 +48,21 @@ module Gattica
         create_http_connection('www.googleapis.com')
 
         # get profiles
-        response = do_http_get("/analytics/v2.4/management/accounts/~all/webproperties/~all/profiles?max-results=10000")
+        response = do_http_get("/analytics/v3/management/accounts/~all/webproperties/~all/profiles?max-results=10000")
         xml = Hpricot(response)
         @user_accounts = xml.search(:entry).collect { |profile_xml| 
           Account.new(profile_xml) 
         }
 
         # Fill in the goals
-        response = do_http_get("/analytics/v2.4/management/accounts/~all/webproperties/~all/profiles/~all/goals?max-results=10000")
+        response = do_http_get("/analytics/v3/management/accounts/~all/webproperties/~all/profiles/~all/goals?max-results=10000")
         xml = Hpricot(response)
         @user_accounts.each do |ua|
           xml.search(:entry).each { |e| ua.set_goals(e) }
         end
 
         # Fill in the account name
-        response = do_http_get("/analytics/v2.4/management/accounts?max-results=10000")
+        response = do_http_get("/analytics/v3/management/accounts?max-results=10000")
         xml = Hpricot(response)
         @user_accounts.each do |ua|
           xml.search(:entry).each { |e| ua.set_account_name(e) }
@@ -89,7 +89,7 @@ module Gattica
     def segments
       if @user_segments.nil?
         create_http_connection('www.googleapis.com')
-        response = do_http_get("/analytics/v2.4/management/segments?max-results=10000")
+        response = do_http_get("/analytics/v3/management/segments?max-results=10000")
         xml = Hpricot(response)
         @user_segments = xml.search("dxp:segment").collect { |s| 
           Segment.new(s) 
@@ -138,7 +138,7 @@ module Gattica
       query_string = build_query_string(args,@profile_id)
       @logger.debug(query_string) if @debug
       create_http_connection('www.googleapis.com')
-      data = do_http_get("/analytics/v2.4/data?#{query_string}")
+      data = do_http_get("/analytics/v3/data?#{query_string}")
       return DataSet.new(Hpricot.XML(data))
     end
 
@@ -187,8 +187,7 @@ module Gattica
     # Sets up the HTTP headers that Google expects (this is called any time @token is set either by Gattica
     # or manually by the user since the header must include the token)
     def set_http_headers
-      @headers['Authorization'] = "GoogleLogin auth=#{@token}"
-      @headers['GData-Version']= '2'
+      @headers['Authorization'] = "Bearer #{@token}"
     end
 
 
@@ -300,7 +299,7 @@ module Gattica
     # If the authorization is a email and password then create User objects
     # or if it's a previous token, use that.  Else, raise exception.
     def check_init_auth_requirements
-      if @options[:token].to_s.length > 200
+      if @options[:token].to_s.length > 1
         self.token = @options[:token]
       elsif @options[:email] && @options[:password]
         @user = User.new(@options[:email], @options[:password])
