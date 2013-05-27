@@ -9,7 +9,7 @@ Features
 * Returns data as: hash, json, CSV
 
 [How to export Google Analytics data using Ruby](
-http://www.seerinteractive.com/blog/google-analytics-data-export-api-with-rubygattica/2011/02/22/) (Links to my blog post on [Seer Interactive](http://www.seerinteractive.com))
+http://www.seerinteractive.com/blog/google-analytics-data-export-api-with-rubygattica) (Links to my blog post on [Seer Interactive](http://www.seerinteractive.com))
 
 <hr />
 
@@ -21,7 +21,7 @@ Installation
 ------------
 Add Gattica to your Gemfile
 
-    gem 'gattica', :git => 'git://github.com/chrisle/gattica.git'
+    gem 'gattica', :git => 'git://github.com/MartijnSch/gattica.git'
 
 Don't forget to bundle install:
 
