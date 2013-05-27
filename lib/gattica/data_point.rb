@@ -38,7 +38,6 @@ module Gattica
       end
       
       # output all dimensions
-
       @dimensions.map {|d| d.values.first}.each { |c| columns << c }
       # output all metrics
       @metrics.map {|m| m.values.first}.each { |c| columns << c }
@@ -57,7 +56,6 @@ module Gattica
     end
 
     def to_hash
-
       res_hash = {}
 
       @dimensions.each{|d| res_hash.merge!(d) }
