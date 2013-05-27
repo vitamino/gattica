@@ -4,3 +4,4 @@ examples/active_example.rb
 examples/.DS_Store
 .idea
 .rvmrc
+gattia.gemspec
