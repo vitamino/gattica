@@ -303,10 +303,13 @@ module Gattica
       @default_account_feed = nil
     end
 
-    # If the authorization is a email and password then create User objects
-    # or if it's a previous token, use that.  Else, raise exception.
+    # Use a token else, raise exception.
     def check_init_auth_requirements
-      self.token = @options[:token]
+      if @options[:token].to_s.length > 1
+        self.token = @options[:token]
+      else
+        raise GatticaError::NoToken, 'An email and password or an authentication token is required to initialize Gattica.'
+      end
     end
 
   end

@@ -4,7 +4,7 @@ module GatticaError
 
   # Authentication errors
   class CouldNotAuthenticate < StandardError; end;
-  class NoLoginOrToken < StandardError; end;
+  class NoToken < StandardError; end;
   class InvalidToken < StandardError; end;
   class InsufficientPermissions < StandardError; end;
 
