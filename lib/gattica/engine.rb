@@ -9,10 +9,8 @@ module Gattica
     # == Options:
     # To change the defaults see link:settings.rb
     # +:debug+::        Send debug info to the logger (default is false)
-    # +:email+::        Your email/login for Google Analytics
     # +:headers+::      Add additional HTTP headers (default is {} )
     # +:logger+::       Logger to use (default is STDOUT)
-    # +:password+::     Your password for Google Analytics
     # +:profile_id+::   Use this Google Analytics profile_id (default is nil)
     # +:timeout+::      Set Net:HTTP timeout in seconds (default is 300)
     # +:token+::        Use an authentication token you received before
@@ -34,7 +32,7 @@ module Gattica
     # Then set the profile_id of your instance and you can make regular calls
     # from then on.
     #
-    #   ga = Gattica.new({:email => 'johndoe@google.com', :password => 'password'})
+    #   ga = Gattica.new({:token => 'oauth2_token'})
     #   ga.accounts
     #   # you parse through the accounts to find the profile_id you need
     #   ga.profile_id = 12345678
@@ -75,7 +73,7 @@ module Gattica
     # Returns the list of segments available to the authenticated user.
     #
     # == Usage
-    #   ga = Gattica.new({:email => 'johndoe@google.com', :password => 'password'})
+    #   ga = Gattica.new({:token => 'oauth2_token'})
     #   ga.segments                       # Look up segment id
     #   my_gaid = 'gaid::-5'              # Non-paid Search Traffic
     #   ga.profile_id = 12345678          # Set our profile ID
@@ -100,7 +98,7 @@ module Gattica
     #
     # == Usage
     #
-    #   gs = Gattica.new({:email => 'johndoe@google.com', :password => 'password', :profile_id => 123456})
+    #   ga = Gattica.new({:token => 'oauth2_token'})
     #   gs.get({ :start_date => '2008-01-01',
     #            :end_date => '2008-02-01',
     #            :dimensions => 'browser',
