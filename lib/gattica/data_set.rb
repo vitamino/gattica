@@ -5,7 +5,7 @@ module Gattica
     include Convertible
 
     attr_reader :total_results, :start_index, :items_per_page, :start_date,
-                :end_date, :points, :xml, :sampled_data
+                :end_date, :points, :xml, :sampled_data, :total_for_all_results
 
     def initialize(json)
       @xml = json.to_s
@@ -15,6 +15,7 @@ module Gattica
       @start_date = Date.parse(json['query']['start-date'])
       @end_date = Date.parse(json['query']['end-date'])
       @sampled_data = json['containsSampledData']
+      @total_for_all_results = json['totalsForAllResults']
       @points = json['rows'].collect { |entry| DataPoint.new(entry) }
     end
 
@@ -47,7 +48,8 @@ module Gattica
         'start_date' => @start_date,
         'end_date' => @end_date,
         'sampled_data' => @sampled_data,
-        'points' => @points }.to_yaml
+        'points' => @points,
+        'total_for_all_results' => @total_for_all_results }.to_yaml
     end
 
     def to_hash

@@ -10,7 +10,7 @@ module Gattica
 
     attr_reader :id, :updated, :title, :dimensions, :metrics, :xml
 
-    # Parses the XML <entry> element
+    # Parses the JSON <row> element
     def initialize(xml)
       @xml = xml.to_s
       @id = xml.at('id').inner_html
