@@ -9,6 +9,8 @@ require 'rubygems'
 require 'yaml'
 require 'json'
 require 'openssl'
+require 'stringio'
+require 'zlib'
 
 require 'gattica/engine'
 require 'gattica/settings'
@@ -24,7 +26,7 @@ require 'gattica/segment'
 # Please see the README for usage docs.
 module Gattica
 
-  VERSION = '1.0.0'
+  VERSION = '1.1.0'
 
   # Creates a new instance of Gattica::Engine
   def self.new(*args)

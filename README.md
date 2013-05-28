@@ -405,6 +405,10 @@ History
 
 Version history
 ---------------
+### 1.1.0
+  * Add support for using GZIP to compress data
+  * Use efficient query parameters to the V3 Management API to increase performance 
+
 ### 1.0.0
   * Update to use Google Analytics V3 API for both reporting and management
 

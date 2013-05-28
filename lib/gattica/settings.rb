@@ -25,6 +25,7 @@ module Gattica
         :api_key => nil,
         :profile_id => nil,
         :debug => false,
+        :gzip => false,
         :headers => {},
         :logger => Logger.new(STDOUT),
         :verify_ssl => true,
