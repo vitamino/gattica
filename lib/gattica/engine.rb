@@ -50,19 +50,19 @@ module Gattica
         create_http_connection('www.googleapis.com')
 
         # Get profiles
-        response = do_http_get("/analytics/v3/management/accounts/~all/webproperties/~all/profiles?max-results=10000")
+        response = do_http_get("/analytics/v3/management/accounts/~all/webproperties/~all/profiles?max-results=10000&fields=items(id,name,updated,accountId,webPropertyId)")
         json = JSON.parse(response)
         @user_accounts = json['items'].collect { |profile_json| Account.new(profile_json) }
 
         # Fill in the goals
-        response = do_http_get("/analytics/v3/management/accounts/~all/webproperties/~all/profiles/~all/goals?max-results=10000")
+        response = do_http_get("/analytics/v3/management/accounts/~all/webproperties/~all/profiles/~all/goals?max-results=10000&fields=items(profileId,name,value,active)")
         json = JSON.parse(response)
         @user_accounts.each do |ua|
           json['items'].each { |e| ua.set_goals(e) }
         end
 
         # Fill in the account name
-        response = do_http_get("/analytics/v3/management/accounts?max-results=10000")
+        response = do_http_get("/analytics/v3/management/accounts?max-results=10000&fields=items(id,name)")
         json = JSON.parse(response)
         @user_accounts.each do |ua|
           json['items'].each { |e| ua.set_account_name(e) }
