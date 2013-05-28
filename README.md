@@ -412,7 +412,8 @@ Version history
 
     * :) Support for OAuth 2.0 as the new, recommended way to authorize users.
     * :) New JSON based output reduces the size of the response ~10x from the previous XML output.
-    * :( It's not that easy any more to use the gem for plug and play
+    * :( It's not that easy any more to use the gem for plug and play.
+    * :( Remove support for XML output as we already support JSON.
 
 ### 0.7.0
   * Incorporated fixes by tbem
