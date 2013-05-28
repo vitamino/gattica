@@ -1,15 +1,12 @@
 Gattica
 =======
-Gattica is an easy to use Gem for getting data from the Google Analytics API.  
+Gattica is an easy to use Gem for getting data from the Google Analytics API V3.  
 
 Features
 --------
 * Supports: metrics, dimensions, sorting, filters, goals, and segments.
 * Handles accounts with over 1000 profiles
 * Returns data as: hash, json, CSV
-
-[How to export Google Analytics data using Ruby](
-http://www.seerinteractive.com/blog/google-analytics-data-export-api-with-rubygattica) (Links to my blog post on [Seer Interactive](http://www.seerinteractive.com))
 
 <hr />
 
@@ -31,11 +28,10 @@ Login, get a list of accounts, pick an account, and get data:
 
     # Include the gem
     require 'gattica'
-    
+
     # Login
     ga = Gattica.new({ 
-        :email => 'email@gmail.com', 
-        :password => 'password'
+        :token => 'oaut2_token'
     })
 
     # Get a list of accounts
@@ -62,9 +58,8 @@ General Usage
 
 ### Create your Gattica object
 
-    ga = Gattica.new({ :email => 'email@gmail.com', :password => 'password' })
-    puts ga.token   # => returns a big alpha-numeric string
-    
+    ga = Gattica.new({ :token => 'oaut2_token' })
+
 ### Query for accounts you have access to
 
     # Retrieve a list of accounts
@@ -375,27 +370,13 @@ If you have a lot of profiles in your account (like 1000+ profiles) querying for
 To avoid this, specify a timeout when you instantiate the Gattica object:
 
     ga = Gattica.new({ 
-        :email => 'email@gmail.com', 
-        :password => 'password',
+        :token => 'oauth2_token',
         :timeout => 600  # Set timeout for 10 minutes!
     })
 
 The default timeout is 300 seconds (5 minutes). Change the default in: lib/gattica/settings.rb
 
 For reference 1000 profiles with 2-5 goals each takes around 90-120 seconds.
-
-Reusing a session token
------------------------
-
-You can reuse an older session if you still have the token string.  Google recommends doing this to avoid authenticating over and over.
-
-  
-    my_token = ga.token # => 'DSasdf94...'
-    
-    # Sometime later, you can initialize Gattica with the same token
-    ga = Gattica.new({ :token => my_token })
-
-If your token times out, you will need to re-authenticate.
 
 Specifying your own headers
 ---------------------------
