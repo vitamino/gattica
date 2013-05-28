@@ -8,7 +8,7 @@ module Gattica
     def initialize(json)
       @id = json['id']
       @updated = DateTime.parse(json['updated'])
-      @account_id = find_account_id(json)
+      @account_id = json['accountId']
 
       @title = json['name']
       @profile_id = json['id']
