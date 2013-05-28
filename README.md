@@ -397,6 +397,16 @@ You can set http proxy settings when you instantiate the Gattica object:
         :token => 'oauth2_token',
         :http_proxy => { :host => 'proxy.example.com', :port => 8080, :user => 'username', :password => 'password' }
     })
+
+GZIP Compression
+----------------
+
+You can set GZIP compression when he instantiate the Gattica object:
+
+    ga = Gattica.new({
+        :token => 'oauth2_token',
+        :gzip => true
+    })
     
 <hr />
 
