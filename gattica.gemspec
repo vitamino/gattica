@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'gattica'
-  s.version = '0.6.2'
+  s.version = '1.0.0'
 
   s.required_rubygems_version = Gem::Requirement.new('>= 0') if s.respond_to? :required_rubygems_version=
   s.authors = ['Martijn Scheijbeler, Christopher Le, et all']
@@ -26,7 +26,6 @@ Gem::Specification.new do |s|
     'gattica.gemspec',
     'lib/gattica.rb',
     'lib/gattica/account.rb',
-    'lib/gattica/auth.rb',
     'lib/gattica/convertible.rb',
     'lib/gattica/data_point.rb',
     'lib/gattica/data_set.rb',
@@ -37,13 +36,11 @@ Gem::Specification.new do |s|
     'lib/gattica/profiles.rb',
     'lib/gattica/segment.rb',
     'lib/gattica/settings.rb',
-    'lib/gattica/user.rb',
     'test/helper.rb',
     'test/settings.rb',
     'test/suite.rb',
     'test/test_engine.rb',
-    'test/test_results.rb',
-    'test/test_user.rb'
+    'test/test_results.rb'
   ]
   s.homepage = 'http://github.com/martijnsch/gattica'
   s.require_paths = ['lib']

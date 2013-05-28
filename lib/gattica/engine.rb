@@ -49,7 +49,7 @@ module Gattica
       if @user_accounts.nil?
         create_http_connection('www.googleapis.com')
 
-        # get profiles
+        # Get profiles
         response = do_http_get("/analytics/v3/management/accounts/~all/webproperties/~all/profiles?max-results=10000")
         json = JSON.parse(response)
         @user_accounts = json['items'].collect { |profile_json| Account.new(profile_json) }
@@ -152,7 +152,7 @@ module Gattica
 
     ######################################################################
     private
-    
+
     # Add the Google API key to the query string, if one is specified in the options.
 
     def add_api_key(query_string)
@@ -306,15 +306,7 @@ module Gattica
     # If the authorization is a email and password then create User objects
     # or if it's a previous token, use that.  Else, raise exception.
     def check_init_auth_requirements
-      if @options[:token].to_s.length > 1
-        self.token = @options[:token]
-      elsif @options[:email] && @options[:password]
-        @user = User.new(@options[:email], @options[:password])
-        @auth = Auth.new(@http, user)
-        self.token = @auth.tokens[:auth]
-      else
-        raise GatticaError::NoLoginOrToken, 'An email and password or an authentication token is required to initialize Gattica.'
-      end
+      self.token = @options[:token]
     end
 
   end

@@ -1,23 +1,25 @@
 module GatticaError
-  # user errors
-  class InvalidEmail < StandardError; end;
-  class InvalidPassword < StandardError; end;
+  # User errors
   class UserError < StandardError; end;
-  # authentication errors
+
+  # Authentication errors
   class CouldNotAuthenticate < StandardError; end;
   class NoLoginOrToken < StandardError; end;
   class InvalidToken < StandardError; end;
   class InsufficientPermissions < StandardError; end;
-  # profile errors
+
+  # Profile errors
   class InvalidProfileId < StandardError; end;
-  # search errors
+
+  # Search errors
   class TooManyDimensions < StandardError; end;
   class TooManyMetrics < StandardError; end;
   class InvalidSort < StandardError; end;
   class InvalidFilter < StandardError; end;
   class MissingStartDate < StandardError; end;
   class MissingEndDate < StandardError; end;
-  # errors from Analytics
+
+  # Errors from Analytics
   class AnalyticsError < StandardError; end;
   class UnknownAnalyticsError < StandardError; end;
 end

@@ -4,7 +4,7 @@ module Gattica
 
   module Convertible
 
-    # output as hash
+    # Output as hash
     def to_h
       output = {}
       instance_variables.each do |var|
@@ -13,7 +13,7 @@ module Gattica
       output.tap { |h| h.include? HashExtensions }
     end
 
-    # output nice inspect syntax
+    # Output nice inspect syntax
     def to_s
       to_h.inspect
     end

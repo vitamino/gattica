@@ -29,9 +29,9 @@ Login, get a list of accounts, pick an account, and get data:
     # Include the gem
     require 'gattica'
 
-    # Login
+    # Login using your OAT
     ga = Gattica.new({ 
-        :token => 'oaut2_token'
+        :token => 'oauth2_token'
     })
 
     # Get a list of accounts
@@ -58,7 +58,7 @@ General Usage
 
 ### Create your Gattica object
 
-    ga = Gattica.new({ :token => 'oaut2_token' })
+    ga = Gattica.new({ :token => 'oauth2_token' })
 
 ### Query for accounts you have access to
 
@@ -384,7 +384,7 @@ Specifying your own headers
 Google expects a special header in all HTTP requests called 'Authorization'.  Gattica handles this header automatically.  If you want to specify your own you can do that when you instantiate Gattica:
 
     ga = Gattica.new({
-        :token => 'DSasdf94...', 
+        :token => 'oauth2_token',
         :headers => {'My-Special-Header':'my_custom_value'}
     })
         
@@ -393,9 +393,8 @@ Using http proxy
 
 You can set http proxy settings when you instantiate the Gattica object:
 
-    ga = Gattica.new({ 
-        :email => 'email@gmail.com', 
-        :password => 'password',
+    ga = Gattica.new({
+        :token => 'oauth2_token',
         :http_proxy => { :host => 'proxy.example.com', :port => 8080, :user => 'username', :password => 'password' }
     })
     
@@ -406,6 +405,20 @@ History
 
 Version history
 ---------------
+### 1.0.0
+  * Update to use Google Analytics V3 API for both reporting and management
+
+    TL;DR: Use the V3 API now
+
+    * :) Support for OAuth 2.0 as the new, recommended way to authorize users.
+    * :) New JSON based output reduces the size of the response ~10x from the previous XML output.
+    * :( It's not that easy any more to use the gem for plug and play
+
+### 0.7.0
+  * Incorporated fixes by tbem
+    * Escape commas in filters.
+    * Add proxy support and ssl_ca_path support
+
 ### 0.6.1
   * Incorporated fixes by vgololobov
     * Removed circular dependency
@@ -415,7 +428,7 @@ Version history
   * Update to use Google Analytics v2.4 management API
 
     TL;DR: Uses the v2.4 API now because Google deprecated <2.3.
-      
+
     * :) - Drop-in replacement for you.
     * :) - Won't timeout anymore.
     * :) - Accounts method might be faster if you have a few profiles
@@ -495,3 +508,4 @@ Maintainer history
   * [Rob Cameron](https://github.com/activenetwork/gattica) (2010)
   * [Mike Rumble](https://github.com/rumble/gattica) (2010)
   * [Chris Le](https://github.com/chrisle/gattica) (Current)
+  * [Martijn Scheijbeler](https://github.com/martijnsch/gattica) (Current)
