@@ -5,9 +5,10 @@ module Gattica
     include Convertible
 
     attr_reader :total_results, :start_index, :items_per_page, :start_date,
-                :end_date, :points, :sampled_data
+                :end_date, :points, :xml, :sampled_data
 
     def initialize(json)
+      @xml = json.to_s
       @total_results = json['totalResults'].to_i
       @start_index = json['query']['start-index'].to_i
       @items_per_page = json['itemsPerPage'].to_i
@@ -36,7 +37,7 @@ module Gattica
       @points.each do |point|
         output += point.to_csv(format)
       end
-       output
+      output
     end
 
     def to_yaml
