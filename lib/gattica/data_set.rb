@@ -3,18 +3,19 @@ module Gattica
   # Encapsulates the data returned by the GA API
   class DataSet
     include Convertible
-    
+
     attr_reader :total_results, :start_index, :items_per_page, :start_date,
-                :end_date, :points, :xml
-      
-    def initialize(xml)
-      @xml = xml.to_s
-      @total_results = xml.at('openSearch:totalResults').inner_html.to_i
-      @start_index = xml.at('openSearch:startIndex').inner_html.to_i
-      @items_per_page = xml.at('openSearch:itemsPerPage').inner_html.to_i
-      @start_date = Date.parse(xml.at('dxp:startDate').inner_html)
-      @end_date = Date.parse(xml.at('dxp:endDate').inner_html)
-      @points = xml.search(:entry).collect { |entry| DataPoint.new(entry) }
+                :end_date, :points, :xml, :sampled_data
+
+    def initialize(json)
+      @xml = json.to_s
+      @total_results = json['totalResults'].to_i
+      @start_index = json['query']['start-index'].to_i
+      @items_per_page = json['itemsPerPage'].to_i
+      @start_date = Date.parse(json['query']['start-date'])
+      @end_date = Date.parse(json['query']['end-date'])
+      @sampled_data = json['containsSampledData']
+      @points = json['rows'].collect { |entry| DataPoint.new(entry) }
     end
 
     # Returns a string formatted as a CSV containing just the data points.
@@ -26,7 +27,7 @@ module Gattica
       columns = []
       case format
         when :long
-          ["id", "updated", "title"].each { |c| columns << c }
+          ['id', 'updated', 'title'].each { |c| columns << c }
       end
       unless @points.empty?   # if there was at least one result
         @points.first.dimensions.map {|d| d.keys.first}.each { |c| columns << c }
@@ -45,6 +46,7 @@ module Gattica
         'items_per_page' => @items_per_page,
         'start_date' => @start_date,
         'end_date' => @end_date,
+        'sampled_data' => @sampled_data,
         'points' => @points }.to_yaml
     end
 
@@ -53,5 +55,5 @@ module Gattica
     end
 
   end
-  
+
 end

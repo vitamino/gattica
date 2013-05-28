@@ -5,7 +5,7 @@ class TestEngine < Test::Unit::TestCase
 
   def test_login_with_good_password
     assert Gattica.new(GatticaTest::DEFAULT_AUTH),
-           "should have been able to login"
+      'should have been able to login'
   end
 
   def test_login_with_bad_user_password
@@ -18,7 +18,7 @@ class TestEngine < Test::Unit::TestCase
   def test_accounts
     ga = Gattica.new(GatticaTest::DEFAULT_AUTH)
     accounts = ga.accounts
-    assert accounts.count > 900, "should have gotten at least 900 accounts"
+    assert accounts.count > 900, 'should have gotten at least 900 accounts'
   end
 
 #  def test_timeout_too_short
@@ -31,7 +31,7 @@ class TestEngine < Test::Unit::TestCase
   def test_setting_timeout
     ga = Gattica.new((GatticaTest::DEFAULT_AUTH).merge!(:timeout => 300))
     http = ga.instance_variable_get('@http')
-    assert http.read_timeout == 300, "http timeout should be 300"
+    assert http.read_timeout == 300, 'http timeout should be 300'
   end
 
 #  def test_raise_error_when_no_user_pass_or_token_specified

@@ -2,12 +2,10 @@ PATH
   remote: .
   specs:
     gattica (0.6.2)
-      hpricot
 
 GEM
   remote: http://rubygems.org/
   specs:
-    hpricot (0.8.6)
     json (1.8.0)
     test-unit (2.5.5)
 
@@ -17,6 +15,5 @@ PLATFORMS
 DEPENDENCIES
   bundler
   gattica!
-  hpricot
   json
   test-unit

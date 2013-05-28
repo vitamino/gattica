@@ -7,12 +7,12 @@ module Gattica
     OPTIONS = { :source => 'gattica', :service => 'analytics' }                                             # Google asks that you provide the name of your app as a 'source' parameter in your POST
 
     attr_reader :tokens
-  
+
     # Try to authenticate the user
     def initialize(http, user)
       options = OPTIONS.merge(user.to_h)
       options.extend HashExtensions
-      
+
       response = http.post(SCRIPT_NAME, options.to_query, HEADERS)
       data = response.body ||= ''
       if response.code != '200'
@@ -25,16 +25,16 @@ module Gattica
       end
       @tokens = parse_tokens(data)
     end
-  
-  
+
+
     private
-    
+
     # Parse the authentication tokens out of the response and makes them available as a hash
     #
     # tokens[:auth] => Google requires this for every request (added to HTTP headers on GET requests)
     # tokens[:sid]  => Not used
     # tokens[:lsid] => Not used
-    
+
     def parse_tokens(data)
       tokens = {}
       data.split("\n").each do |t|
@@ -42,6 +42,6 @@ module Gattica
       end
       return tokens
     end
-  
+
   end
 end

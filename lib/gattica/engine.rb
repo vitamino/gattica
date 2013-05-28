@@ -18,6 +18,8 @@ module Gattica
     # +:token+::        Use an authentication token you received before
     # +:api_key+::      The Google API Key for your project
     # +:verify_ssl+::   Verify SSL connection (default is true)
+    # +:ssl_ca_path+::  PATH TO SSL CERTIFICATES to see this run on command line:(openssl version -a) ubuntu path eg:"/usr/lib/ssl/certs"
+    # +:proxy+::        If you need to pass over a proxy eg: proxy => { :host => '127.0.0.1', :port => 3128 }
     def initialize(options={})
       @options = Settings::DEFAULT_OPTIONS.merge(options)
       handle_init_options(@options)
@@ -49,23 +51,21 @@ module Gattica
 
         # get profiles
         response = do_http_get("/analytics/v3/management/accounts/~all/webproperties/~all/profiles?max-results=10000")
-        xml = Hpricot(response)
-        @user_accounts = xml.search(:entry).collect { |profile_xml| 
-          Account.new(profile_xml) 
-        }
+        json = JSON.parse(response)
+        @user_accounts = json['items'].collect { |profile_json| Account.new(profile_json) }
 
         # Fill in the goals
         response = do_http_get("/analytics/v3/management/accounts/~all/webproperties/~all/profiles/~all/goals?max-results=10000")
-        xml = Hpricot(response)
+        json = JSON.parse(response)
         @user_accounts.each do |ua|
-          xml.search(:entry).each { |e| ua.set_goals(e) }
+          json['items'].each { |e| ua.set_goals(e) }
         end
 
         # Fill in the account name
         response = do_http_get("/analytics/v3/management/accounts?max-results=10000")
-        xml = Hpricot(response)
+        json = JSON.parse(response)
         @user_accounts.each do |ua|
-          xml.search(:entry).each { |e| ua.set_account_name(e) }
+          json['items'].each { |e| ua.set_account_name(e) }
         end
 
       end
@@ -89,11 +89,9 @@ module Gattica
     def segments
       if @user_segments.nil?
         create_http_connection('www.googleapis.com')
-        response = do_http_get("/analytics/v3/management/segments?max-results=10000")
-        xml = Hpricot(response)
-        @user_segments = xml.search("dxp:segment").collect { |s| 
-          Segment.new(s) 
-        }
+        response = do_http_get('/analytics/v3/management/segments?max-results=10000')
+        json = JSON.parse(response)
+        @user_segments = json['items'].collect { |s| Segment.new(s) }
       end
       return @user_segments
     end
@@ -139,7 +137,7 @@ module Gattica
       @logger.debug(query_string) if @debug
       create_http_connection('www.googleapis.com')
       data = do_http_get("/analytics/v3/data?#{query_string}")
-      return DataSet.new(Hpricot.XML(data))
+      return DataSet.new(JSON.parse(data))
     end
 
 
@@ -156,7 +154,7 @@ module Gattica
     private
     
     # Add the Google API key to the query string, if one is specified in the options.
-    
+
     def add_api_key(query_string)
       query_string += "&key=#{@options[:api_key]}" if @options[:api_key]
       query_string
@@ -168,14 +166,16 @@ module Gattica
     def do_http_get(query_string)
       response = @http.get(add_api_key(query_string), @headers)
 
-      # error checking
+      # response code error checking
       if response.code != '200'
         case response.code
         when '400'
           raise GatticaError::AnalyticsError, response.body + " (status code: #{response.code})"
         when '401'
           raise GatticaError::InvalidToken, "Your authorization token is invalid or has expired (status code: #{response.code})"
-        else  # some other unknown error
+        when '403'
+          raise GatticaError::UserError, response.body + " (status code: #{response.code})"
+        else
           raise GatticaError::UnknownAnalyticsError, response.body + " (status code: #{response.code})"
         end
       end
@@ -269,11 +269,19 @@ module Gattica
 
     def create_http_connection(server)
       port = Settings::USE_SSL ? Settings::SSL_PORT : Settings::NON_SSL_PORT
-      @http = @options[:http_proxy].any? ? http_proxy.new(server, port) : Net::HTTP.new(server, port)
+      @http =
+      unless( @options[:proxy] )
+        Net::HTTP.new(server, port)
+      else
+        Net::HTTP::Proxy( @options[:proxy][:host],  @options[:proxy][:port]).new(server, port)
+      end
       @http.use_ssl = Settings::USE_SSL
       @http.verify_mode = @options[:verify_ssl] ? Settings::VERIFY_SSL_MODE : Settings::NO_VERIFY_SSL_MODE
       @http.set_debug_output $stdout if @options[:debug]
       @http.read_timeout = @options[:timeout] if @options[:timeout]
+      if (@options[:ssl_ca_path] && File.directory?(@options[:ssl_ca_path]) && @http.use_ssl?)
+        @http.ca_path = @options[:ssl_ca_path]
+      end
     end
 
     def http_proxy
@@ -293,7 +301,6 @@ module Gattica
       @user_segments = nil
       @headers = { }.merge(options[:headers]) # headers used for any HTTP requests (Google requires a special 'Authorization' header which is set any time @token is set)
       @default_account_feed = nil
-
     end
 
     # If the authorization is a email and password then create User objects
