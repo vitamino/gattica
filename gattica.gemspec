@@ -46,4 +46,5 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.rubygems_version = '1.8.10'
   s.summary = 'Gattica is a easy to use Ruby Gem for getting data from the Google Analytics API.'
+  s.g   = ["gattica_get_access_token"]
 end
