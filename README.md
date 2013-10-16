@@ -415,6 +415,9 @@ History
 
 Version history
 ---------------
+### 1.2.0
+  * Add an extra method to get only 1 metric & fix a big when returning no results (Thanks @imme5150 https://github.com/imme5150)
+
 ### 1.1.0
   * Add support for using GZIP to compress data
   * Use efficient query parameters to the V3 Management API to increase performance 
