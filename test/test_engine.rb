@@ -10,8 +10,8 @@ class TestEngine < Test::Unit::TestCase
 
   def test_login_with_bad_user_password
     assert_raise GatticaError::CouldNotAuthenticate do
-      Gattica.new({ :email => 'bad-email@gmail.com',
-                    :password => 'bad-password' })
+      Gattica.new({ email: 'bad-email@gmail.com',
+                    password: 'bad-password' })
     end
   end
 
@@ -22,14 +22,14 @@ class TestEngine < Test::Unit::TestCase
   end
 
 #  def test_timeout_too_short
-#    ga = Gattica.new(GatticaTest::DEFAULT_AUTH.merge!(:timeout => 0))
+#    ga = Gattica.new(GatticaTest::DEFAULT_AUTH.merge!(timeout: 0))
 #    assert_raise Timeout::Error do
 #      ga.accounts
 #    end
 #  end
 
   def test_setting_timeout
-    ga = Gattica.new((GatticaTest::DEFAULT_AUTH).merge!(:timeout => 300))
+    ga = Gattica.new((GatticaTest::DEFAULT_AUTH).merge!(timeout: 300))
     http = ga.instance_variable_get('@http')
     assert http.read_timeout == 300, 'http timeout should be 300'
   end
@@ -42,7 +42,7 @@ class TestEngine < Test::Unit::TestCase
 #
 #  def test_use_an_existing_token
 #    token = Gattica.new(@auth).token
-#    assert Gattica.new({ :token => token })
+#    assert Gattica.new({ token: token })
 #  end
 
 end

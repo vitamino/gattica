@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'gattica'
-  s.version = '1.2.0'
+  s.version = '1.2.1'
 
   s.required_rubygems_version = Gem::Requirement.new('>= 0') if s.respond_to? :required_rubygems_version=
   s.authors = ['Martijn Scheijbeler, Christopher Le, et all']
@@ -44,6 +44,6 @@ Gem::Specification.new do |s|
   ]
   s.homepage = 'http://github.com/martijnsch/gattica'
   s.require_paths = ['lib']
-  s.rubygems_version = '1.8.10'
+  s.rubygems_version = '1.9.1'
   s.summary = 'Gattica is a easy to use Ruby Gem for getting data from the Google Analytics API.'
 end

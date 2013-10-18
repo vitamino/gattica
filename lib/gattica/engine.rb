@@ -17,7 +17,7 @@ module Gattica
     # +:api_key+::      The Google API Key for your project
     # +:verify_ssl+::   Verify SSL connection (default is true)
     # +:ssl_ca_path+::  PATH TO SSL CERTIFICATES to see this run on command line:(openssl version -a) ubuntu path eg:"/usr/lib/ssl/certs"
-    # +:proxy+::        If you need to pass over a proxy eg: proxy => { :host => '127.0.0.1', :port => 3128 }
+    # +:proxy+::        If you need to pass over a proxy eg: proxy => { host: '127.0.0.1', port: 3128 }
     def initialize(options={})
       @options = Settings::DEFAULT_OPTIONS.merge(options)
       handle_init_options(@options)
@@ -32,7 +32,7 @@ module Gattica
     # Then set the profile_id of your instance and you can make regular calls
     # from then on.
     #
-    #   ga = Gattica.new({:token => 'oauth2_token'})
+    #   ga = Gattica.new({token: 'oauth2_token'})
     #   ga.accounts
     #   # you parse through the accounts to find the profile_id you need
     #   ga.profile_id = 12345678
@@ -73,16 +73,16 @@ module Gattica
     # Returns the list of segments available to the authenticated user.
     #
     # == Usage
-    #   ga = Gattica.new({:token => 'oauth2_token'})
+    #   ga = Gattica.new({token: 'oauth2_token'})
     #   ga.segments                       # Look up segment id
     #   my_gaid = 'gaid::-5'              # Non-paid Search Traffic
     #   ga.profile_id = 12345678          # Set our profile ID
     #
-    #   ga.get({ :start_date => '2008-01-01',
-    #            :end_date => '2008-02-01',
-    #            :dimensions => 'month',
-    #            :metrics => 'views',
-    #            :segment => my_gaid })
+    #   ga.get({ start_date: '2008-01-01',
+    #            end_date: '2008-02-01',
+    #            dimensions: 'month',
+    #            metrics: 'views',
+    #            segment: my_gaid })
 
     def segments
       if @user_segments.nil?
@@ -98,7 +98,7 @@ module Gattica
     #
     # == Usage
     #
-    #   ga = Gattica.new({:token => 'oauth2_token'})
+    #   ga = Gattica.new({token: 'oauth2_token'})
     #   ga.get_metric('2008-01-01', '2008-02-01', :pageviews)
     #
     # == Input
@@ -122,13 +122,13 @@ module Gattica
     #
     # == Usage
     #
-    #   ga = Gattica.new({:token => 'oauth2_token'})
-    #   ga.get({ :start_date => '2008-01-01',
-    #            :end_date => '2008-02-01',
-    #            :dimensions => 'browser',
-    #            :metrics => 'pageviews',
-    #            :sort => 'pageviews',
-    #            :filters => ['browser == Firefox']})
+    #   ga = Gattica.new({token: 'oauth2_token'})
+    #   ga.get({ start_date: '2008-01-01',
+    #            end_date: '2008-02-01',
+    #            dimensions: 'browser',
+    #            metrics: 'pageviews',
+    #            sort: 'pageviews',
+    #            filters: ['browser == Firefox']})
     #
     # == Input
     #

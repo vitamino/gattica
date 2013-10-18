@@ -4,7 +4,7 @@ require File.expand_path('../settings', __FILE__)
 class TestResults < Test::Unit::TestCase
 
   def setup
-    @response = GatticaTest::get({ :start_index => 5, :max_results => 5 })
+    @response = GatticaTest::get({ start_index: 5, max_results: 5 })
   end
 
   def test_max_results

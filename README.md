@@ -415,6 +415,9 @@ History
 
 Version history
 ---------------
+### 1.2.1
+  * Upgrade to Ruby 1.9.1 and the new Ruby hash syntax
+
 ### 1.2.0
   * Add an extra method to get only 1 metric & fix a big when returning no results (Thanks @imme5150 https://github.com/imme5150)
 

@@ -19,10 +19,10 @@ module Gattica
       @web_property_id = json['webPropertyId']
 
       # @goals = json.search('ga:goal').collect do |goal| {
-      #   :active => goal.attributes['active'],
-      #   :name => goal.attributes['name'],
-      #   :number => goal.attributes['number'].to_i,
-      #   :value => goal.attributes['value'].to_f,
+      #   active: goal.attributes['active'],
+      #   name: goal.attributes['name'],
+      #   number: goal.attributes['number'].to_i,
+      #   value: goal.attributes['value'].to_f,
       # }
       # end
     end
