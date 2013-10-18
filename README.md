@@ -31,7 +31,7 @@ Login, get a list of accounts, pick an account, and get data:
 
     # Login using your OAT
     ga = Gattica.new({ 
-        :token => 'oauth2_token'
+        token: 'oauth2_token'
     })
 
     # Get a list of accounts
@@ -42,10 +42,10 @@ Login, get a list of accounts, pick an account, and get data:
 
     # Get the data
     data = ga.get({ 
-        :start_date   => '2011-01-01',
-        :end_date     => '2011-04-01',
-        :dimensions   => ['month', 'year'],
-        :metrics      => ['visits', 'bounces'],
+        start_date:   '2011-01-01',
+        end_date:     '2011-04-01',
+        dimensions:   ['month', 'year'],
+        metrics:      ['visits', 'bounces'],
     })
 
     # Show the data
@@ -58,7 +58,7 @@ General Usage
 
 ### Create your Gattica object
 
-    ga = Gattica.new({ :token => 'oauth2_token' })
+    ga = Gattica.new({ token: 'oauth2_token' })
 
 ### Query for accounts you have access to
 
@@ -93,10 +93,10 @@ Here's an example:
 
     # Get the number of visitors by month from Jan 1st to April 1st.
     data = ga.get({ 
-        :start_date   => '2011-01-01',
-        :end_date     => '2011-04-01',
-        :dimensions   => ['month', 'year'],
-        :metrics      => ['visitors']
+        start_date:   '2011-01-01',
+        end_date:     '2011-04-01',
+        dimensions:   ['month', 'year'],
+        metrics:      ['visitors']
     })
 
 <hr />
@@ -111,22 +111,22 @@ Here are some additional examples that illustrate different things you can do wi
 
     # Sorting by number of visits in descending order (most visits at the top)
     data = ga.get({ 
-        :start_date   => '2011-01-01',
-        :end_date     => '2011-04-01',
-        :dimensions   => ['month', 'year'],
-        :metrics      => ['visits'],
-        :sort         => ['-visits']
+        start_date:   '2011-01-01',
+        end_date:     '2011-04-01',
+        dimensions:   ['month', 'year'],
+        metrics:      ['visits'],
+        sort:         ['-visits']
     })
 
 ### Limiting results
 
     # Limit the number of results to 25.
     data = ga.get({ 
-        :start_date   => '2011-01-01',
-        :end_date     => '2011-04-01',
-        :dimensions   => ['month', 'year'],
-        :metrics      => ['visits'],
-        :max_results  => 25 
+        start_date:   '2011-01-01',
+        end_date:     '2011-04-01',
+        dimensions:   ['month', 'year'],
+        metrics:      ['visits'],
+        max_results:  25 
     })
 
 ### Results as a Hash
@@ -278,11 +278,11 @@ Learn more about filters: [Google Data feed filtering reference](http://code.goo
     # (Google's default user segment gaid::-11)
     
     mobile_traffic = ga.get({ 
-      :start_date   => '2011-01-01', 
-      :end_date     => '2011-02-01', 
-      :dimensions   => ['month', 'year'],
-      :metrics      => ['visits', 'bounces'],
-      :segment      => 'gaid::-11'
+      start_date:   '2011-01-01', 
+      end_date:     '2011-02-01', 
+      dimensions:   ['month', 'year'],
+      metrics:      ['visits', 'bounces'],
+      segment:      'gaid::-11'
     })
 
 ### Filtering
@@ -291,33 +291,33 @@ Filters are boolean expressions in strings. Here's an example of an equality:
 
     # Filter by Firefox users
     firefox_users = ga.get({
-      :start_date   => '2010-01-01', 
-      :end_date     => '2011-01-01',
-      :dimensions   => ['month', 'year'],
-      :metrics      => ['visits', 'bounces'],
-      :filters      => ['browser == Firefox']
+      start_date:   '2010-01-01', 
+      end_date:     '2011-01-01',
+      dimensions:   ['month', 'year'],
+      metrics:      ['visits', 'bounces'],
+      filters:      ['browser == Firefox']
     })
     
 Here's an example of greater-than:
     
     # Filter where visits is >= 10000
     lots_of_visits = ga.get({
-      :start_date   => '2010-01-01', 
-      :end_date     => '2011-02-01',
-      :dimensions   => ['month', 'year'],
-      :metrics      => ['visits', 'bounces'],
-      :filters      => ['visits >= 10000']
+      start_date:   '2010-01-01', 
+      end_date:     '2011-02-01',
+      dimensions:   ['month', 'year'],
+      metrics:      ['visits', 'bounces'],
+      filters:      ['visits >= 10000']
     })
     
 Multiple filters is an array.  Currently, they are only joined by 'AND'.
 
     # Firefox users and visits >= 10000
     firefox_users_with_many_pageviews = ga.get({
-      :start_date   => '2010-01-01', 
-      :end_date     => '2011-02-01',
-      :dimensions   => ['month', 'year'],
-      :metrics      => ['visits', 'bounces'],
-      :filters      => ['browser == Firefox', 'visits >= 10000']
+      start_date:   '2010-01-01', 
+      end_date:     '2011-02-01',
+      dimensions:   ['month', 'year'],
+      metrics:      ['visits', 'bounces'],
+      filters:      ['browser == Firefox', 'visits >= 10000']
     })
 
 
@@ -332,12 +332,12 @@ Output the top 25 keywords that drove traffic to your website in the first quart
 
     # Get the top 25 keywords that drove traffic
     data = ga.get({ 
-      :start_date => '2011-01-01',
-      :end_date => '2011-04-01',
-      :dimensions => ['keyword'],
-      :metrics => ['visits'],
-      :sort => ['-visits'],
-      :max_results => 25 
+      start_date: '2011-01-01',
+      end_date: '2011-04-01',
+      dimensions: ['keyword'],
+      metrics: ['visits'],
+      sort: ['-visits'],
+      max_results: => 25 
     })
     
     # Output our results
@@ -370,8 +370,8 @@ If you have a lot of profiles in your account (like 1000+ profiles) querying for
 To avoid this, specify a timeout when you instantiate the Gattica object:
 
     ga = Gattica.new({ 
-        :token => 'oauth2_token',
-        :timeout => 600  # Set timeout for 10 minutes!
+        token: 'oauth2_token',
+        timeout: 600  # Set timeout for 10 minutes!
     })
 
 The default timeout is 300 seconds (5 minutes). Change the default in: lib/gattica/settings.rb
@@ -384,8 +384,8 @@ Specifying your own headers
 Google expects a special header in all HTTP requests called 'Authorization'.  Gattica handles this header automatically.  If you want to specify your own you can do that when you instantiate Gattica:
 
     ga = Gattica.new({
-        :token => 'oauth2_token',
-        :headers => {'My-Special-Header':'my_custom_value'}
+        token: 'oauth2_token',
+        headers: {'My-Special-Header':'my_custom_value'}
     })
         
 Using http proxy
@@ -394,8 +394,8 @@ Using http proxy
 You can set http proxy settings when you instantiate the Gattica object:
 
     ga = Gattica.new({
-        :token => 'oauth2_token',
-        :http_proxy => { :host => 'proxy.example.com', :port => 8080, :user => 'username', :password => 'password' }
+        token: 'oauth2_token',
+        http_proxy: { host: 'proxy.example.com', port: 8080, user: 'username', password: 'password' }
     })
 
 GZIP Compression
@@ -404,8 +404,8 @@ GZIP Compression
 You can set GZIP compression when he instantiate the Gattica object:
 
     ga = Gattica.new({
-        :token => 'oauth2_token',
-        :gzip => true
+        token: 'oauth2_token',
+        gzip: true
     })
     
 <hr />
