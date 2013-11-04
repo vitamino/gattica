@@ -29,7 +29,7 @@ Login, get a list of accounts, pick an account, and get data:
     # Include the gem
     require 'gattica'
 
-    # Login using your OAT
+    # Login using your OAUHT2 Token
     ga = Gattica.new({ 
         token: 'oauth2_token'
     })
