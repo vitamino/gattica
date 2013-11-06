@@ -1,15 +1,9 @@
 #!/usr/bin/env ruby
 
-# this is pretty rough, but I hope it helps!
-# 
-# if you run into any problems, this is a big help:
-# https://developers.google.com/oauthplayground/
-
 require 'net/http'
 require 'json'
 
 puts "
-
 FOLLOW THE DIRECTIONS BELOW:
 
 * Go to https://cloud.google.com/console
@@ -43,23 +37,26 @@ http.use_ssl = true
 
 request = Net::HTTP::Post.new("/o/oauth2/device/code")
 request.form_data = {:client_id => client_id, :scope => scope}
-response = JSON.parse(http.request(request).body)
+request = http.request(request)
+if request.code.to_i == 200
+	response = JSON.parse(request.body)
 
-puts "\n\n* Go to #{response['verification_url']} and log in or select your account
-* type in '#{response['user_code']}' (without the quotes) in the box provided
-* Click 'Continue' and then 'Allow Access'
-* Press enter after the success page loads"
-STDIN.gets
+	puts "\n\n* Go to #{response['verification_url']} and log in or select your account
+	* type in '#{response['user_code']}' (without the quotes) in the box provided
+	* Click 'Continue' and then 'Allow Access'
+	* Press enter after the success page loads"
+	STDIN.gets
 
-request = Net::HTTP::Post.new("/o/oauth2/token")
-request.form_data = {:client_id => client_id, :client_secret => client_secret, :code => response['device_code'], :grant_type => 'http://oauth.net/grant_type/device/1.0'}
-puts "\n\nrefresh token:"
-puts refresh_token = JSON.parse(http.request(request).body)['refresh_token']
+	request = Net::HTTP::Post.new("/o/oauth2/token")
+	request.form_data = {:client_id => client_id, :client_secret => client_secret, :code => response['device_code'], :grant_type => 'http://oauth.net/grant_type/device/1.0'}
+	puts "\n\nrefresh token:"
+	puts refresh_token = JSON.parse(http.request(request).body)['refresh_token']
 
-puts "\n\nTo use the refresh token, copy and paste the code below into your app:\n
-http = Net::HTTP.new('accounts.google.com', 443)
-http.use_ssl = true
-# http.verify_mode = OpenSSL::SSL::VERIFY_NONE # uncomment if you need to NOT verify the SSL cert
-request = Net::HTTP::Post.new('/o/oauth2/token')
-request.form_data = {client_id:'#{client_id}', client_secret:'#{client_secret}', refresh_token:'#{refresh_token}', grant_type:'refresh_token'}
-access_token = JSON.parse(http.request(request).body)['access_token']\n"
+	puts "\n\nTo use the refresh token, copy and paste the code below into your app:\n
+	http = Net::HTTP.new('accounts.google.com', 443)
+	http.use_ssl = true
+	# http.verify_mode = OpenSSL::SSL::VERIFY_NONE # uncomment if you need to NOT verify the SSL cert
+	request = Net::HTTP::Post.new('/o/oauth2/token')
+	request.form_data = {client_id:'#{client_id}', client_secret:'#{client_secret}', refresh_token:'#{refresh_token}', grant_type:'refresh_token'}
+	access_token = JSON.parse(http.request(request).body)['access_token']\n"
+end
