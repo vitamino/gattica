@@ -24,6 +24,10 @@ Don't forget to bundle install:
 
     $ bundle install
 
+If you want to get a refresh token to use for offline access, run:
+
+    $ bundle exec gattica_get_access_token
+
 Login, get a list of accounts, pick an account, and get data:
 
     # Include the gem
