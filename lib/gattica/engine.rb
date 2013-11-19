@@ -53,7 +53,7 @@ module Gattica
         @user_accounts = json['items'].collect { |profile_json| Account.new(profile_json) }
 
         # Fill in the goals
-        response = do_http_get("/analytics/v3/management/accounts/~all/webproperties/~all/profiles/~all/goals?max-results=10000&fields=items(profileId,name,value,active)")
+        response = do_http_get("/analytics/v3/management/accounts/~all/webproperties/~all/profiles/~all/goals?max-results=10000&fields=items(profileId,name,value,active,type,updated)")
         json = decompress_gzip(response)
         @user_accounts.each do |ua|
           json['items'].each { |e| ua.set_goals(e) }

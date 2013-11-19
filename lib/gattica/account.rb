@@ -39,7 +39,9 @@ module Gattica
         @goals.push({
           active: goals_feed_entry['active'],
           name: goals_feed_entry['name'],
-          value: goals_feed_entry['value'].to_f
+          value: goals_feed_entry['value'].to_f,
+          type: goals_feed_entry['type'],
+          updated: goals_feed_entry['updated']
         })
       end
     end    

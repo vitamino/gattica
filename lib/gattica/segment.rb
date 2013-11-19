@@ -11,6 +11,7 @@ module Gattica
       @id = json['id']
       @name = json['name']
       @definition = json['definition']
+      @updated = json['updated']
     end
 
   end
