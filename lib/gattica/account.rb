@@ -13,6 +13,9 @@ module Gattica
       @title = json['name']
       @profile_id = json['id']
       @web_property_id = json['webPropertyId']
+      @currency = json['currency']
+      @timezone = json['timezone']
+      @ecommerce = json['eCommerceTracking']
       @goals = []
     end
 
