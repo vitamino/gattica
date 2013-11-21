@@ -419,6 +419,12 @@ History
 
 Version history
 ---------------
+### 1.2.4
+  * Improve the get methods for retrieving metrics via the reporting API.
+
+### 1.2.2 & 1.2.3
+  * Provide some extra data for goals, accounts & segments.
+
 ### 1.2.1
   * Upgrade to Ruby 1.9.1 and the new Ruby hash syntax
 
