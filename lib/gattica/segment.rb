@@ -5,7 +5,7 @@ module Gattica
   class Segment
     include Convertible
 
-    attr_reader :id, :name, :definition
+    attr_reader :id, :name, :definition, :updated
 
     def initialize(json)
       @id = json['id']

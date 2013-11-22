@@ -419,6 +419,9 @@ History
 
 Version history
 ---------------
+### 1.3.1 & 1.3.2
+  * Always use high precision for sampled data + fix the export to CSV method.
+
 ### 1.3
   * Finally move the reporting API part to the new V3 API so you're able to retrieve the data.
 

@@ -3,7 +3,8 @@ module Gattica
     include Convertible
 
     attr_reader :id, :updated, :title, :account_id, :account_name,
-                :profile_id, :web_property_id, :goals
+                :profile_id, :web_property_id, :goals, :currency,
+                :timezone,:ecommerce
 
     def initialize(json)
       @id = json['id']

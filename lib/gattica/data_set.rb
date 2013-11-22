@@ -35,8 +35,7 @@ module Gattica
           ['id', 'updated', 'title'].each { |c| columns << c }
       end
       unless @points.empty?   # if there was at least one result
-        @points.first.dimensions.map {|d| d.keys.first}.each { |c| columns << c }
-        @points.first.metrics.map {|m| m.keys.first}.each { |c| columns << c }
+        @points.first.map {|d| columns << d.keys }
       end
       output = CSV.generate_line(columns) 
       @points.each do |point|
