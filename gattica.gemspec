@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'gattica'
-  s.version = '1.2.4'
+  s.version = '1.3'
 
   s.required_rubygems_version = Gem::Requirement.new('>= 0') if s.respond_to? :required_rubygems_version=
   s.authors = ['Martijn Scheijbeler, Christopher Le, et all']
@@ -27,7 +27,6 @@ Gem::Specification.new do |s|
     'lib/gattica.rb',
     'lib/gattica/account.rb',
     'lib/gattica/convertible.rb',
-    'lib/gattica/data_point.rb',
     'lib/gattica/data_set.rb',
     'lib/gattica/engine.rb',
     'lib/gattica/exceptions.rb',

@@ -341,7 +341,7 @@ Output the top 25 keywords that drove traffic to your website in the first quart
       dimensions: ['keyword'],
       metrics: ['visits'],
       sort: ['-visits'],
-      max_results: => 25 
+      max_results: 25 
     })
     
     # Output our results
@@ -419,6 +419,9 @@ History
 
 Version history
 ---------------
+### 1.3
+  * Finally move the reporting API part to the new V3 API so you're able to retrieve the data.
+
 ### 1.2.4
   * Improve the get methods for retrieving metrics via the reporting API.
 

@@ -16,7 +16,11 @@ module Gattica
       @end_date = Date.parse(json['query']['end-date'])
       @sampled_data = json['containsSampledData']
       @total_for_all_results = json['totalsForAllResults']
-      @points = json['rows'].collect { |entry| DataPoint.new(entry) } if json['rows']
+      headers = []
+      json['columnHeaders'].each { |column| headers << column['name'].gsub('ga:','').to_sym }
+      columns = []
+      json['rows'].each { |entry| columns << Hash[headers.zip(entry)] } if json['rows']
+      @points = columns
     end
 
     # Returns a string formatted as a CSV containing just the data points.

@@ -11,7 +11,7 @@ module Gattica
       @id = json['id']
       @name = json['name']
       @definition = json['definition']
-      @updated = json['updated']
+      @updated = DateTime.parse(json['updated'])
     end
 
   end
