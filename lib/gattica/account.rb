@@ -17,6 +17,7 @@ module Gattica
       @currency = json['currency']
       @timezone = json['timezone']
       @ecommerce = json['eCommerceTracking']
+      @site_search = !json['siteSearchQueryParameters'].nil? ? true : false
       @goals = []
     end
 
