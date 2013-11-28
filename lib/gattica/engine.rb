@@ -88,7 +88,7 @@ module Gattica
       if @user_segments.nil?
         create_http_connection('www.googleapis.com')
         response = do_http_get('/analytics/v3/management/segments?max-results=10000')
-        json = JSON.parse(response)
+        json = decompress_gzip(response)
         @user_segments = json['items'].collect { |s| Segment.new(s) }
       end
       return @user_segments
@@ -159,7 +159,8 @@ module Gattica
       @logger.debug(query_string) if @debug
       create_http_connection('www.googleapis.com')
       data = do_http_get("/analytics/v3/data/ga?samplingLevel=HIGHER_PRECISION&#{query_string}")
-      return DataSet.new(JSON.parse(data))
+      json = decompress_gzip(data)
+      return DataSet.new(json)
     end
 
 
