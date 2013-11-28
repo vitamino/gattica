@@ -18,6 +18,7 @@ module Gattica
       @total_for_all_results = json['totalsForAllResults']
       headers = []
       json['columnHeaders'].each { |column| headers << column['name'].gsub('ga:','').to_sym }
+      @headers << headers
       columns = []
       json['rows'].each { |entry| columns << Hash[headers.zip(entry)] } if json['rows']
       @points = columns

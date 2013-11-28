@@ -18,7 +18,7 @@ Installation
 ------------
 Add Gattica to your Gemfile
 
-    gem 'gattica', :git => 'git://github.com/MartijnSch/gattica.git'
+    gem 'gattica', git: 'git://github.com/MartijnSch/gattica.git'
 
 Don't forget to bundle install:
 
@@ -61,7 +61,6 @@ General Usage
 =============
 
 ### Create your Gattica object
-
     ga = Gattica.new({ token: 'oauth2_token' })
 
 ### Query for accounts you have access to
@@ -133,27 +132,6 @@ Here are some additional examples that illustrate different things you can do wi
         max_results:  25 
     })
 
-### Results as a Hash
-
-    my_hash = data.to_h['points']
-
-    # => 
-    #   [{
-    #     "xml"         => "<entry gd:etag=\"W/&quot;....  </entry>", 
-    #     "id"          => "http://www.google.com/analytics/feeds/data?...", 
-    #     "updated"     => Thu, 31 Mar 2011 17:00:00 -0700, 
-    #     "title"       => "ga:month=01 | ga:year=2011", 
-    #     "dimensions"  => [{:month=>"01"}, {:year=>"2011"}], 
-    #     "metrics"     => [{:visitors=>6}]
-    #   },
-    #   {
-    #     "xml"         => ...
-    #     "id"          => ...
-    #     "updated"     => ...
-    #     ...
-    #   }]
-
-
 ### JSON formatted string
 
     # Return data as a json string. (Useful for NoSQL databases)
@@ -193,17 +171,14 @@ Here are some additional examples that illustrate different things you can do wi
 
     # You can work directly with the 'point' method to return data.
     data.points.each do |data_point|
-      month = data_point.dimensions.detect { |dim| dim.key == :month }.value
-      year = data_point.dimensions.detect { |dim| dim.key == :year }.value
-      visitors = data_point.metrics.detect { |metric| metric.key == :visitors }.value
-      puts "#{month}/#{year} got #{visitors} visitors"
+      puts "#{data_point[:keyword]} got #{visitors} visitors"
     end
 
     # => 
-    #   01/2011 got 34552 visitors
-    #   02/2011 got 36732 visitors
-    #   03/2011 got 45642 visitors
-    #   04/2011 got 44456 visitors
+    #   keyword 1 got 34552 visitors
+    #   keyword 2 got 36732 visitors
+    #   keyword 3 got 45642 visitors
+    #   keyword 4 got 44456 visitors
 
 <hr />
 
@@ -220,15 +195,19 @@ Learn more about filters: [Google Data feed filtering reference](http://code.goo
 
     # => 
     #   [{
-    #     "id"                => "http://www.google.com/analytics/feeds/accounts/ga:...",
-    #     "updated"           => Mon, 16 May 2011 16:40:30 -0700, 
-    #     "title"             => "Profile Title", 
-    #     "table_id"          => "ga:123456", 
-    #     "account_id"        => 123456, 
-    #     "account_name"      => "Account name", 
-    #     "profile_id"        =>  123456, 
-    #     "web_property_id"   => "UA-123456-3", 
-    #     "goals"=>[{
+    #     :id                => "http://www.google.com/analytics/feeds/accounts/ga:...",
+    #     :updated           => Mon, 16 May 2011 16:40:30 -0700,
+    #     :title             => "Profile Title",
+    #     :table_id          => "ga:123456",
+    #     :account_id        => 123456,
+    #     :account_name      => "Account name",
+    #     :profile_id        =>  123456,
+    #     :web_property_id   => "UA-123456-3",
+    #     :currency          => "EUR",
+    #     :timezone          => "",
+    #     :ecommerce         => true,
+    #     :site_search       => true,
+    #     :goals =>[{
     #         :active   => "true", 
     #         :name     => "Goal name", 
     #         :number   => 1, 
@@ -236,9 +215,9 @@ Learn more about filters: [Google Data feed filtering reference](http://code.goo
     #     }]
     #   }, 
     #   {
-    #     "id"                => "http://www.google.com/analytics/feeds/accounts/ga:...",
-    #     "updated"           => Mon, 16 May 2011 16:40:30 -0700, 
-    #     "title"             => "Profile Title", 
+    #     :id                => "http://www.google.com/analytics/feeds/accounts/ga:...",
+    #     :updated           => Mon, 16 May 2011 16:40:30 -0700, 
+    #     :title             => "Profile Title", 
     #     ...
     #   }]
 
@@ -247,33 +226,38 @@ Learn more about filters: [Google Data feed filtering reference](http://code.goo
     # Get all the segments that are available to you
     segments = ga.segments
 
-    # Segments with negative gaid are default segments from Google. Segments
-    # with positive gaid numbers are custom segments that you created.
+    # Segments with negative gaid are default segments from Google.
+    # Segments with positive gaid numbers are custom segments that you created.
     # =>
     #   [{
-    #     "id"          => "gaid::-1", 
-    #     "name"        => "All Visits", 
-    #     "definition"  => " "
+    #     :id          => "gaid::-1", 
+    #     :name        => "All Visits", 
+    #     :definition  => " ",
+    #     :updated     => "2013-11-28 20:30:40"
     #   }, 
     #   {
-    #     "id"          => "gaid::-2", 
-    #     "name"        => "New Visitors", 
-    #     "definition"  => "ga:visitorType==New Visitor"
+    #     :id          => "gaid::-2", 
+    #     :name        => "New Visitors", 
+    #     :definition  => "ga:visitorType==New Visitor",
+    #     :updated     => "2013-11-28 20:30:40"
     #   }, 
     #   {
-    #     "id"          => ... # more default segments
-    #     "name"        => ...
-    #     "definition"  => ...
+    #     :id          => ... # more default segments
+    #     :name        => ...
+    #     :definition  => ...
+    #     :updated     => ...
     #   },
     #   {
-    #     "id"          => "gaid::12345678", 
-    #     "name"        => "Name of segment", 
-    #     "definition"  => "ga:keyword=...."
+    #     :id          => "gaid::12345678", 
+    #     :name        => "Name of segment", 
+    #     :definition  => "ga:keyword=...."
+    #     :updated     => ...
     #   }, 
     #   {
-    #     "id"          => ... # more custom segments
-    #     "name"        => ...
-    #     "definition"  => ...
+    #     :id          => ... # more custom segments
+    #     :name        => ...
+    #     :definition  => ...
+    #     :updated     => ...
     #   }]
 
 ### Query by segment
@@ -332,16 +316,16 @@ Even More Examples!
 
 ### Top 25 keywords that drove traffic
 
-Output the top 25 keywords that drove traffic to your website in the first quarter of 2011.
+Output the top 25 keywords that drove traffic to your website in the first quarter of 2013.
 
     # Get the top 25 keywords that drove traffic
     data = ga.get({ 
-      start_date: '2011-01-01',
-      end_date: '2011-04-01',
-      dimensions: ['keyword'],
-      metrics: ['visits'],
-      sort: ['-visits'],
-      max_results: 25 
+      start_date:   '2013-01-01',
+      end_date:     '2013-04-01',
+      dimensions:   ['keyword'],
+      metrics:      ['visits'],
+      sort:         ['-visits'],
+      max_results:  25 
     })
     
     # Output our results
@@ -392,7 +376,7 @@ Google expects a special header in all HTTP requests called 'Authorization'.  Ga
         headers: {'My-Special-Header':'my_custom_value'}
     })
         
-Using http proxy
+Using HTTP proxy
 -----------------
 
 You can set http proxy settings when you instantiate the Gattica object:
@@ -405,7 +389,7 @@ You can set http proxy settings when you instantiate the Gattica object:
 GZIP Compression
 ----------------
 
-You can set GZIP compression when he instantiate the Gattica object:
+You can set GZIP compression when he instantiate the Gattica object (default is false):
 
     ga = Gattica.new({
         token: 'oauth2_token',
@@ -419,6 +403,9 @@ History
 
 Version history
 ---------------
+### 1.3.4
+  * Fixed a bug that prevented users from using GZIP to get metrics and segments.
+
 ### 1.3.1 & 1.3.2
   * Always use high precision for sampled data + fix the export to CSV method.
 
