@@ -15,6 +15,7 @@ require 'zlib'
 require 'gattica/engine'
 require 'gattica/settings'
 require 'gattica/hash_extensions'
+require 'gattica/meta_data'
 require 'gattica/convertible'
 require 'gattica/exceptions'
 require 'gattica/account'
@@ -25,7 +26,7 @@ require 'gattica/segment'
 # Please see the README for usage docs.
 module Gattica
 
-  VERSION = '1.3.4'
+  VERSION = '1.4'
 
   # Creates a new instance of Gattica::Engine
   def self.new(*args)

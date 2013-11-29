@@ -403,6 +403,9 @@ History
 
 Version history
 ---------------
+### 1.4
+  * Add the Metadata API to the Gattica gem.
+  
 ### 1.3.4
   * Fixed a bug that prevented users from using GZIP to get metrics and segments.
 

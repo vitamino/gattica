@@ -94,6 +94,22 @@ module Gattica
       return @user_segments
     end
 
+    # Returns the list of metadata available to the authenticated user.
+    #
+    # == Usage
+    #   ga = Gattica.new({token: 'oauth2_token'})
+    #   ga.metadata                       # Look up meta data
+    #
+    def metadata
+      if @meta_data.nil?
+        create_http_connection('www.googleapis.com')
+        response = do_http_get('/analytics/v3/metadata/ga/columns')
+        json = decompress_gzip(response)
+        @meta_data = json['items'].collect { |md| MetaData.new(md) }
+      end
+      return @meta_data
+    end
+
     # This is a convenience method if you want just 1 data point.
     #
     # == Usage
