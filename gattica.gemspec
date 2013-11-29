@@ -49,25 +49,4 @@ Gem::Specification.new do |s|
   s.rubygems_version = "2.0.3"
   s.summary = "Gattica is a easy to use Ruby Gem for getting data from the Google Analytics API."
 
-  if s.respond_to? :specification_version then
-    s.specification_version = 4
-
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<gattica>, [">= 0"])
-      s.add_runtime_dependency(%q<test-unit>, [">= 0"])
-      s.add_runtime_dependency(%q<bundler>, [">= 0"])
-      s.add_runtime_dependency(%q<json>, [">= 0"])
-    else
-      s.add_dependency(%q<gattica>, [">= 0"])
-      s.add_dependency(%q<test-unit>, [">= 0"])
-      s.add_dependency(%q<bundler>, [">= 0"])
-      s.add_dependency(%q<json>, [">= 0"])
-    end
-  else
-    s.add_dependency(%q<gattica>, [">= 0"])
-    s.add_dependency(%q<test-unit>, [">= 0"])
-    s.add_dependency(%q<bundler>, [">= 0"])
-    s.add_dependency(%q<json>, [">= 0"])
-  end
 end
-

@@ -350,6 +350,19 @@ Output the top 25 keywords that drove traffic to your website in the first quart
 Additional Options & Settings
 =============================
 
+GZIP Compression
+----------------
+
+If you want to have an overview of all the metadata field you're able to use within the Reporting API.
+
+    ga = Gattica.new({
+          token: 'oauth2_token'
+      })
+    ga.metadata
+
+This wiill provide you with a list of all metadata.
+
+
 Setting HTTP timeout
 --------------------
 

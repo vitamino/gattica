@@ -3,7 +3,6 @@ require 'json'
 
 module Gattica
   class MetaData
-    include Convertible
 
     attr_reader :id, :kind, :type, :data_type, :group, :status, :ui_name,
                 :app_ui_name, :description, :allowed_in_segments
