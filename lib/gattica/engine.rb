@@ -179,6 +179,15 @@ module Gattica
       return DataSet.new(json)
     end
 
+    def mcf(args={})
+      args = validate_and_clean(Settings::DEFAULT_ARGS.merge(args))
+      query_string = build_query_string(args,@profile_id,true)
+      @logger.debug(query_string) if @debug
+      create_http_connection('www.googleapis.com')
+      data = do_http_get("/analytics/v3/data/mcf?samplingLevel=HIGHER_PRECISION&#{query_string}")
+      json = decompress_gzip(data)
+      return DataSet.new(json)
+    end
 
     # Since google wants the token to appear in any HTTP call's header, we have to set that header
     # again any time @token is changed so we override the default writer (note that you need to set
@@ -246,19 +255,19 @@ module Gattica
     end
 
     # Creates a valid query string for GA
-    def build_query_string(args,profile)
+    def build_query_string(args,profile,mcf=false)
       output = "ids=ga:#{profile}&start-date=#{args[:start_date]}&end-date=#{args[:end_date]}"
       if (start_index = args[:start_index].to_i) > 0
         output += "&start-index=#{start_index}"
       end
       unless args[:dimensions].empty?
         output += '&dimensions=' + args[:dimensions].collect do |dimension|
-          "ga:#{dimension}"
+          mcf ? "mcf:#{dimension}" : "ga:#{dimension}"
         end.join(',')
       end
       unless args[:metrics].empty?
         output += '&metrics=' + args[:metrics].collect do |metric|
-          "ga:#{metric}"
+          mcf ? "mcf:#{metric}" : "ga:#{metric}"
         end.join(',')
       end
       unless args[:sort].empty?

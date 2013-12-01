@@ -5,6 +5,7 @@ Gattica is an easy to use Gem for getting data from the Google Analytics API V3.
 Features
 --------
 * Supports: metrics, dimensions, sorting, filters, goals, and segments.
+* Get acces to the Management API, Reporting API, MCF Reporting API and the Metadata API.
 * Handles accounts with over 1000 profiles
 * Returns data as: hash, json, CSV
 
@@ -360,7 +361,26 @@ If you want to have an overview of all the metadata field you're able to use wit
       })
     ga.metadata
 
-This wiill provide you with a list of all metadata.
+This will provide you with a list of all metadata.
+
+Multi Channel Funnels
+----------------
+
+Getting access to Multi Channel Funnels is working the same way as the method for getting data from the Reporting API.
+
+    ga = Gattica.new({
+          token: 'oauth2_token'
+      })
+    data = ga.mcf({ 
+      start_date:   '2013-01-01',
+      end_date:     '2013-04-01',
+      dimensions:   ['basicChannelGroupingPath'],
+      metrics:      ['totalConversions'],
+      sort:         ['-totalConversions'],
+      max_results:  25 
+    })
+
+This will provide you with a list of all metrics for multi channel funnels.
 
 
 Setting HTTP timeout
@@ -416,6 +436,9 @@ History
 
 Version history
 ---------------
+### 1.4.1
+  * Now also supporting multi channel funnel data.
+
 ### 1.4
   * Add the Metadata API to the Gattica gem.
   
