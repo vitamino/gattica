@@ -87,7 +87,7 @@ module Gattica
     def segments
       if @user_segments.nil?
         create_http_connection('www.googleapis.com')
-        response = do_http_get('/analytics/v3/management/segments?max-results=10000')
+        response = do_http_get('/analytics/v3/management/segments?max-results=10000&fields=items(id,name,definition,updated)')
         json = decompress_gzip(response)
         @user_segments = json['items'].collect { |s| Segment.new(s) }
       end
