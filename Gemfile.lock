@@ -1,12 +1,12 @@
 PATH
   remote: .
   specs:
-    gattica (1.1.0)
+    gattica (1.4.2)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    json (1.8.0)
+    json (1.8.1)
     test-unit (2.5.5)
 
 PLATFORMS
