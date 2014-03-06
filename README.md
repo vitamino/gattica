@@ -436,6 +436,9 @@ History
 
 Version history
 ---------------
+### 1.4.2
+  * Fix a bug which prevented data for accounts to be pulled.
+
 ### 1.4.1
   * Now also supporting multi channel funnel data.
 

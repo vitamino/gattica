@@ -48,7 +48,7 @@ module Gattica
         create_http_connection('www.googleapis.com')
 
         # Get profiles
-        response = do_http_get("/analytics/v3/management/accounts/~all/webproperties/~all/profiles?max-results=10000&fields=items(id,name,updated,accountId,webPropertyId,eCommerceTracking,currency,timezone)")
+        response = do_http_get("/analytics/v3/management/accounts/~all/webproperties/~all/profiles?max-results=10000&fields=items(id,name,updated,accountId,webPropertyId,eCommerceTracking,currency,timezone,siteSearchQueryParameters)")
         json = decompress_gzip(response)
         @user_accounts = json['items'].collect { |profile_json| Account.new(profile_json) }
 
