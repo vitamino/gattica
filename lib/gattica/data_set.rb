@@ -5,7 +5,7 @@ module Gattica
     include Convertible
 
     attr_reader :total_results, :start_index, :items_per_page, :start_date,
-                :end_date, :points, :xml, :sampled_data, :total_for_all_results
+                :end_date, :points, :xml, :sampled_data, :total_for_all_results, :headers
 
     def initialize(json)
       @xml = json.to_s
