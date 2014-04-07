@@ -57,7 +57,7 @@ module Gattica
         json = decompress_gzip(response)
         @user_accounts.each do |ua|
           json['items'].each { |e| ua.set_goals(e) }
-        end
+        end unless (json.blank?)
 
         # Fill in the account name
         response = do_http_get("/analytics/v3/management/accounts?max-results=10000&fields=items(id,name)")
