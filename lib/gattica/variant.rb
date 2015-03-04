@@ -3,6 +3,7 @@ require 'json'
 
 module Gattica
   class Variant
+  	include Convertible
 
     attr_reader :status, :url, :weight, :won
 

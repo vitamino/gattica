@@ -11,7 +11,7 @@ module Gattica
                 :rewrite_variation_urls_as_original, :self_link,
                 :serving_framework, :snippet, :start_time, :status,
                 :traffic_coverage, :updated, :web_property_id,
-                :winner_confidence_level, :winner_found
+                :winner_confidence_level, :winner_found, :variations
 
     def initialize(json)
       @id = json['id']
@@ -40,7 +40,7 @@ module Gattica
       @web_property_id = json['webPropertyId']
       @winner_confidence_level = json['winnerConfidenceLevel']
       @winner_found = json['winnerFound']
-      #@variations = json['variations'].collect { |variant| Variant.new(variant) }
+      @variations = json['variations'].collect { |variant| Variant.new(variant) }
     end
 
   end
