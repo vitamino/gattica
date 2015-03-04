@@ -18,6 +18,9 @@ module GatticaError
   class InvalidFilter < StandardError; end;
   class MissingStartDate < StandardError; end;
   class MissingEndDate < StandardError; end;
+  class MissingAccountId < StandardError; end;
+  class MissingWebPropertyId < StandardError; end;
+  class MissingProfileId < StandardError; end;
 
   # Errors from Analytics
   class AnalyticsError < StandardError; end;

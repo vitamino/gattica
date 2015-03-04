@@ -118,6 +118,11 @@ module Gattica
     #   ga.experiments(123456, 'UA-123456', 123456)         # Look up meta data
     #
     def experiments(account_id, web_property_id, profile_id)
+
+      raise GatticaError::MissingAccountId, 'account_id is required' if account_id.nil? || account_id.empty?
+      raise GatticaError::MissingWebPropertyId, 'web_property_id is required' if web_property_id.nil? || web_property_id.empty?
+      raise GatticaError::MissingProfileId, 'profile_id is required' if profile_id.nil? || profile_id.empty?
+
       if @experiments.nil?
         create_http_connection('www.googleapis.com')
         response = do_http_get("/analytics/v3/management/accounts/#{account_id}/webproperties/#{web_property_id}/profiles/#{profile_id}/experiments")
