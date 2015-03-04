@@ -110,6 +110,23 @@ module Gattica
       return @meta_data
     end
 
+    # Returns the list of experiments available to the authenticated user for
+    # a specific profile.
+    #
+    # == Usage
+    #   ga = Gattica.new({token: 'oauth2_token'})
+    #   ga.experiments(123456, 'UA-123456', 123456)         # Look up meta data
+    #
+    def experiments(account_id, web_property_id, profile_id)
+      if @experiments.nil?
+        create_http_connection('www.googleapis.com')
+        response = do_http_get("/analytics/v3/management/accounts/#{account_id}/webproperties/#{web_property_id}/profiles/#{profile_id}/experiments")
+        json = decompress_gzip(response)
+        @experiments = json['items'].collect { |experiment| Experiment.new(experiment) }
+      end
+      return @experiments
+    end
+
     # This is a convenience method if you want just 1 data point.
     #
     # == Usage
