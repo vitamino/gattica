@@ -430,6 +430,17 @@ You can set http proxy settings when you instantiate the Gattica object:
         http_proxy: { host: 'proxy.example.com', port: 8080, user: 'username', password: 'password' }
     })
 
+Specifying SSL certificates directory
+-----------------
+
+You can set ssl certificates directory path when you instantiate the Gattica object:
+
+    ga = Gattica.new({
+        token: 'oauth2_token',
+        http_proxy: { host: 'proxy.example.com', port: 8080, user: 'username', password: 'password' }
+        ssl_ca_path: '/usr/lib/ssl/certs'
+    })
+
 GZIP Compression
 ----------------
 
