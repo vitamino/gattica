@@ -437,7 +437,7 @@ You can set ssl certificates directory path when you instantiate the Gattica obj
 
     ga = Gattica.new({
         token: 'oauth2_token',
-        http_proxy: { host: 'proxy.example.com', port: 8080, user: 'username', password: 'password' }
+        http_proxy: { host: 'proxy.example.com', port: 8080, user: 'username', password: 'password' },
         ssl_ca_path: '/usr/lib/ssl/certs'
     })
 
@@ -593,6 +593,24 @@ Version history
 ### 0.1.0 / 2009-03-26
   * Basic functionality working good. Can't use filters yet.
   
+Todo
+=======
+
+Management API
+--------------
+  * List web properties.
+  * List views (profiles).
+  * List all filters.
+  * List all goals.
+  * List custom data sources.
+  * List custom metrics.
+  * List custom dimensions.
+  * List unsampled reports.
+
+Reporting API
+-------------
+  * Add quotaUser options.
+
 
 Maintainer history
 ------------------
