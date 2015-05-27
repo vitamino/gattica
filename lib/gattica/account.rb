@@ -42,11 +42,11 @@ module Gattica
     def set_goals(goals_feed_entry)
       if @profile_id == find_profile_id(goals_feed_entry)
         @goals.push({
-          active: goals_feed_entry['active'],
-          name: goals_feed_entry['name'],
-          value: goals_feed_entry['value'].to_f,
-          type: goals_feed_entry['type'],
-          updated: goals_feed_entry['updated']
+          :active => goals_feed_entry['active'],
+          :name => goals_feed_entry['name'],
+          :value => goals_feed_entry['value'].to_f,
+          :type => goals_feed_entry['type'],
+          :updated => goals_feed_entry['updated']
         })
       end
     end    

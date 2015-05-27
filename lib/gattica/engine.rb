@@ -150,9 +150,9 @@ module Gattica
     # * +metric+ => The metric you want to get the data point for
     #
     def get_metric(start_date, end_date, metric, options={})
-     options.merge!( start_date: start_date.to_s,
-                    end_date: end_date.to_s,
-                    metrics:[metric.to_s] )
+     options.merge!( :start_date => start_date.to_s,
+                    :end_date => end_date.to_s,
+                    :metrics => [metric.to_s] )
      get(options).try(:points).try(:[],0).try(:metrics).try(:[],0).try(:[],metric) || 0
     end
 
